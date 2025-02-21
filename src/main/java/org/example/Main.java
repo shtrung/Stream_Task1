@@ -28,13 +28,18 @@ public class Main {
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         x -> x.getValue().stream().mapToDouble(Order::getCost).sum()));
 
-        //Сортируем по убыванию стоимости, Выводим три заказа с самой высокой стоимостью
+        //Сортируем по убываени и сразу же выводим три самых дорогих заказа
         merge
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                 .limit(3)
                 .forEach((x) -> System.out.printf("Product: %s - Count: %f%n", x.getKey(), x.getValue()));
-
+        //Выводим итог
+        System.out.println("Итог: " + merge
+                .values()
+                .stream()
+                .mapToDouble(Double::doubleValue)
+                .sum());
     }
 }
